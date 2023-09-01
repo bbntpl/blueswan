@@ -1,6 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-import HtmlWebpackTagsPlugin from 'html-webpack-tags-plugin';
+const HtmlWebpackTagsPlugin = require('html-webpack-tags-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const HtmlMinimizerPlugin = require('html-minimizer-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
@@ -17,10 +17,6 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.css$/i,
-				use: [MiniCssExtractPlugin.loader, 'style-loader', 'css-loader'],
-			},
-			{
 				test: /\.(png|svg|jpg|jpeg|gif)$/i,
 				type: 'asset/resource',
 			},
@@ -28,6 +24,7 @@ module.exports = {
 				test: /\.css$/i,
 				use: [
 					MiniCssExtractPlugin.loader,
+					// 'style-loader',
 					'css-loader',
 					{
 						loader: 'postcss-loader',
@@ -55,6 +52,7 @@ module.exports = {
 		new CopyPlugin({
 			patterns: [
 				{ from: './src/assets/images', to: './assets/images' },
+				{ from: './src/styles.css', to: './styles.css' }
 			],
 		}),
 		new MiniCssExtractPlugin(),
